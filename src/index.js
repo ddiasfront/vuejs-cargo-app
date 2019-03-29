@@ -1,9 +1,11 @@
 import Vue from 'vue';
+
 import Main from './app/Main.vue';
 
 import './index.scss';
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

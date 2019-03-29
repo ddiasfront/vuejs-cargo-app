@@ -1,8 +1,8 @@
 <template>
  <div >
-      <h3>{{ box.title }}</h3>
-      <p v-if="Array.isArray(this.box.content)">Array</p>
-    </div>
+    <h3 v-if="typeof this.box.title === 'string'">{{box.title}}</h3>
+    <p v-if="typeof this.box.content === 'string'">{{box.content}}</p>
+  </div>
 </template>
 
 <script>
@@ -12,7 +12,6 @@ export default {
   props: ['box'],
   created() {
     console.log(this.box)
-    debugger
   }
 };
 </script>
