@@ -4,6 +4,7 @@
     <box-simple v-bind:box="cargoData.PedidoCliente"></box-simple>
     <box-simple v-bind:box="cargoData.Telefone"></box-simple>
     <app-box v-bind:appBoxData="cargoData.Aplicativo"></app-box>
+    <box-simple v-bind:box="cargoData.Veiculo"></box-simple>
   </div>
 </template>
 
