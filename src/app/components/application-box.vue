@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3>{{ appBoxData.title }}</h3>
-    <p v-if="typeof this.appBoxData.content.acesso === 'string'">{{acessDate}}</p>
-    <p v-if="typeof this.appBoxData.content.gpsat === 'string'">{{gpsDate}}</p>
-    <p v-if="typeof this.appBoxData.content.primeiroac === 'string'">{{primeiroAcDate}}</p>
-    <p v-if="typeof this.appBoxData.content.versao === 'string'">{{versaoApp}}</p>
+    <h3 class="mainTitle">{{ appBoxData.title }}</h3>
+    <p class="mainContent" v-if="typeof this.appBoxData.content.acesso === 'string'">{{acessDate}}</p>
+    <p class="mainContent" v-if="typeof this.appBoxData.content.gpsat === 'string'">{{gpsDate}}</p>
+    <p class="mainContent" v-if="typeof this.appBoxData.content.primeiroac === 'string'">{{primeiroAcDate}}</p>
+    <p class="mainContent" v-if="typeof this.appBoxData.content.versao === 'string'">{{versaoApp}}</p>
   </div>
 </template>
 

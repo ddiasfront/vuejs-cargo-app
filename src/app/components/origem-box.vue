@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h3>{{origemData.title}}</h3>
-        <p>{{origemData.content.address + ' ' 
+        <h3 class="mainTitle">{{origemData.title}}</h3>
+        <p class="mainContent">{{origemData.content.address + ' ' 
       +  origemData.content.number + ' ' 
       +  origemData.content.city + ' - ' 
       +  origemData.content.state + ' - CEP:' 

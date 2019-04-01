@@ -1,7 +1,7 @@
 <template>
- <div >
-    <h3 >{{box.title}}</h3>
-    <p>{{box.content}}</p>
+ <div>
+    <h3 class="mainTitle">{{box.title}}</h3>
+    <p class="mainContent">{{box.content}}</p>
   </div>
 </template>
 
