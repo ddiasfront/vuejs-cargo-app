@@ -1,24 +1,42 @@
 <template>
-  <div class="mainbg">
-    <div class="col-md-8 justify-content-start row">
-      <div class="col-md-6 ">
-        <box-simple v-bind:box="cargoData.IdCargo"></box-simple>
-        <box-simple v-bind:box="cargoData.PedidoCliente"></box-simple>
-        <box-simple v-bind:box="cargoData.Telefone"></box-simple>
-        <app-box v-bind:appBoxData="cargoData.Aplicativo"></app-box>
-        <veiculo-box v-bind:veiculoData="cargoData.Veiculo"></veiculo-box>
-        <origem-box v-bind:origemData="cargoData.Origem"></origem-box>
-        <origem-box v-bind:origemData="cargoData.Destino"></origem-box>
-        <box-simple v-bind:box="cargoData.Operacao"></box-simple>
-        <box-simple v-bind:box="cargoData.Venda"></box-simple>
+  <div class="wrapper">
+    <header class="row">
+      <div class="col col-md-12 cliente">
+        <h1>{{cliente.title}}</h1>
+        <span>{{cliente.id}}</span>
       </div>
-      <div class="col-md-6">
-        <coleta-box v-bind:coletaData="coletaData"></coleta-box>
-        <documents-box v-bind:documentsData="documentsData"></documents-box>
-        <pagamentos-box v-bind:paymentsData="paymentsData"></pagamentos-box>
-        <statushistory-box v-bind:historyStatusData="historyStatusData"></statushistory-box>
+    </header>
+    <main class="row justify-content-start">
+      <div class="row contentbox col-md-7 justify-content-start">
+        <div class="col-md-6">
+          <box-simple v-bind:box="cargoData.IdCargo"></box-simple>
+          <box-simple v-bind:box="cargoData.PedidoCliente"></box-simple>
+          <box-simple v-bind:box="cargoData.Telefone"></box-simple>
+          <app-box v-bind:appBoxData="cargoData.Aplicativo"></app-box>
+          <veiculo-box v-bind:veiculoData="cargoData.Veiculo"></veiculo-box>
+          <origem-box v-bind:origemData="cargoData.Origem"></origem-box>
+          <origem-box v-bind:origemData="cargoData.Destino"></origem-box>
+          <box-simple v-bind:box="cargoData.Operacao"></box-simple>
+          <box-simple v-bind:box="cargoData.Venda"></box-simple>
+        </div>
+        <div class="col-md-6">
+          <coleta-box v-bind:coletaData="coletaData"></coleta-box>
+          <documents-box v-bind:documentsData="documentsData"></documents-box>
+          <pagamentos-box v-bind:paymentsData="paymentsData"></pagamentos-box>
+          <statushistory-box v-bind:historyStatusData="historyStatusData"></statushistory-box>
+        </div>
       </div>
-    </div>
+      <div class="col col-md-4">
+        <iframe
+          width="100%"
+          height="375"
+          frameborder="0"
+          style="border:0"
+          :src="mapSource"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -42,6 +60,10 @@ export default {
       loadingData: false,
       loadError: false,
       rawResponse: "",
+      cliente: {
+        title: "",
+        content: ""
+      },
       cargoData: {
         IdCargo: { title: "ID do frete CargoX", icon: "", content: "" },
         PedidoCliente: {
@@ -50,7 +72,7 @@ export default {
           content: ""
         },
         Motorista: { title: "Motorista", icon: "", content: "" },
-        Telefone: { title: "Telefone", icon: "", content: "" },
+        Telefone: { title: "Telefone", icon: "", content: "", type: "tel" },
         Aplicativo: {
           title: "Aplicativo",
           icon: "",
@@ -87,7 +109,8 @@ export default {
       },
       documentsData: "",
       paymentsData: {},
-      historyStatusData: {}
+      historyStatusData: {},
+      mapSource: ''
     };
   },
   created() {
@@ -121,7 +144,7 @@ export default {
         (this.cargoData.PedidoCliente.content =
           response.data.customer_tracking_number),
         (this.cargoData.Motorista.content = response.data.trucker.name),
-        (this.cargoData.Telefone.content = response.data.trucker.phone),
+        (this.cargoData.Telefone.content = '+' + response.data.trucker.phone.slice(0,2) + ' ' + '(' + response.data.trucker.phone.slice(2,4) + ')' + ' ' + response.data.trucker.phone.slice(4,9) + '-' + response.data.trucker.phone.slice(9,15)),
         (this.cargoData.Aplicativo.content.acesso =
           response.data.trucker.last_app_open_at),
         (this.cargoData.Aplicativo.content.gpsat =
@@ -151,7 +174,11 @@ export default {
           response.data.manual_input_estimated_time_of_arrival),
         (this.documentsData = response.data.documents),
         (this.paymentsData = response.data.payments),
-        (this.historyStatusData = response.data.status_history);
+        (this.historyStatusData = response.data.status_history),
+        (this.cliente.title = response.data.customer.name),
+        (this.cliente.id = "ID do cliente" + " " + response.data.customer.id),
+        (this.mapSource = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyAF7iXFaYH0yz4OKsU0g4VH8dA3WpopR14&origin=${response.data.origin.city}&destination=${response.data.destination.city}&avoid=tolls|highways`);
+        
     },
     fullFillVeiculo(veiculos) {
       veiculos.forEach(veiculo => {
@@ -171,8 +198,6 @@ export default {
     "documents-box": documentsBox,
     "pagamentos-box": paymentsBox,
     "statushistory-box": historyStatuBox
-    // 'techs': Techs,
-    // 'footer-component': Footer
   }
 };
 </script>

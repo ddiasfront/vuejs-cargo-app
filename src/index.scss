@@ -1,14 +1,14 @@
 $greyDark: #B0BEC5;
 $greyLight: #f0F3F5;
+$greyDarker: #96a4ab;
 $green: #2ecc71;
 $black: #374750;
 $white: #fff;
 $orange: #e67d22;
 $blue: #228CFF;
 
-.mainbg {
-  background-color:#fff;
-  height: 200px;
+.wrapper {
+  background-color: $greyLight;
 }
 .mainTitle {
   font-size: 12px;
@@ -41,7 +41,7 @@ $blue: #228CFF;
   &.active {
     background-color: $orange;
     color: $white;
-    border-color: 2px solid $orange;
+    border: 2px solid $orange;
   }
   &.nextStep {
     background-color: transparent;
@@ -64,5 +64,30 @@ $blue: #228CFF;
   display: flex;
   &.center-content {
     justify-content: center;
+  }
+}
+.status-box {
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+.contentbox {
+  margin: 0 20px 0 35px !important;
+  padding: 20px 0 20px 0;
+  background-color:  $white;
+  border-radius: 4px;
+}
+.cliente {
+  padding: 20px 0 20px 0;
+  margin-left: 20px;
+  color: $greyDarker;
+  h1 {
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+  }
+  span {
+    font-size: 14px;
   }
 }
